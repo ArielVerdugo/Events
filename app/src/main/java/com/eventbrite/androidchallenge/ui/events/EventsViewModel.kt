@@ -8,6 +8,7 @@ import com.eventbrite.androidchallenge.data.events.model.EventsDto
 import com.eventbrite.androidchallenge.usecase.EventUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,9 +23,17 @@ class EventsViewModel@Inject constructor(private val eventUseCase: EventUseCase)
     fun getEvents(){
         showProgress()
         viewModelScope.launch {
+            //val result = eventUseCase.executeGetEvents()
+            //_events.postValue(result)
+            //hideProgress()
+
             val result = eventUseCase.executeGetEvents()
-            _events.postValue(result)
-            hideProgress()
+
+            if (result.isSuccessful){
+                val code = result.code()
+            }else{
+                val code = result.code()
+            }
         }
     }
 
