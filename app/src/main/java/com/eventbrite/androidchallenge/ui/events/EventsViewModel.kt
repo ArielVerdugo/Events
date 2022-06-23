@@ -1,7 +1,12 @@
 package com.eventbrite.androidchallenge.ui.events
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +18,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import retrofit2.Response
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,17 +47,23 @@ class EventsViewModel@Inject constructor(private val eventUseCase: EventUseCase)
     }
 
     private fun manageResponse(response:ServiceResponse<EventsDto>){
-        if (response.successful){
+        if (response != null && response.successful){
             _events.postValue(response.body)
             hideProgress()
         }else{
             //Todo algo que falle
-            Log.d("aaa","falloooo")
+            if (response.exception is UnknownHostException){
+                // TODO: ERRRO INTERNET
+                Log.d("tu hermana","tu rehermana")
+            }else{
+                // Todo otro fallo
+                Log.d("tu prima","tu prima")
+            }
+            Log.d("aaa",response.toString())
             hideProgress()
         }
 
 
     }
-
 
 }

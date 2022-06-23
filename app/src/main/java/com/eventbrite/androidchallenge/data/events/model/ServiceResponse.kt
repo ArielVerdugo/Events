@@ -5,35 +5,26 @@ import java.lang.Exception
 
 
 data class ServiceResponse<T>(
-    val status: Status,
     val data: Response<T>?,
     val exception: Exception?,
 ) {
 
     companion object{
-        fun<T>isSucces(data: Response<T>): ServiceResponse<T>{
+        fun<T>isSuccess(response: Response<T>): ServiceResponse<T>{
             return ServiceResponse(
-                status = Status.Success,
-                data = data,
+                data = response,
                 exception = null,
             )
         }
 
-        fun<T>failure(exception: Exception):ServiceResponse<T>{
+        fun<T>failure(response: Response<T>?,exception: Exception?):ServiceResponse<T>{
             return ServiceResponse(
-                status = Status.Failure,
-                data = null,
+                data = response,
                 exception = exception,
             )
         }
     }
 
-    sealed class Status{
-        object Success: Status()
-        object Failure: Status()
-    }
-
-    val failed: Boolean get() = this.status == Status.Failure
-    val successful: Boolean get() = !failed && this.data?.isSuccessful == true
+    val successful: Boolean get() = if (this.data != null) this.data.isSuccessful else false
     val body: T get() = this.data!!.body()!!
 }

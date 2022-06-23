@@ -11,11 +11,6 @@ import kotlin.Exception
 
 class ApiClientImpl @Inject constructor(private val apiClient: EventsService): ApiClient{
     override suspend fun getEvents(): ServiceResponse<EventsDto> {
-        //return withContext(Dispatchers.IO){
-          //  val response = apiClient.listOrganizerEvents()
-            //response
-        //}
-
         return withContext(Dispatchers.IO){
              apiCall { apiClient.listOrganizerEvents() }
         }
@@ -23,9 +18,12 @@ class ApiClientImpl @Inject constructor(private val apiClient: EventsService): A
 
     private inline fun<T> apiCall(apiCall:() -> Response<T>): ServiceResponse<T>{
         return try {
-            ServiceResponse.isSucces(apiCall.invoke())
+            val response = apiCall.invoke()
+            if (response.isSuccessful) ServiceResponse.isSuccess(response)
+            else ServiceResponse.failure(response,null)
+
         }catch (e:Exception){
-            ServiceResponse.failure(e)
+            ServiceResponse.failure(null,e)
         }
     }
 }

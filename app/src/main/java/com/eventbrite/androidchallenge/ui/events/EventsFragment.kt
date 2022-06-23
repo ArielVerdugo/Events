@@ -6,20 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eventbrite.androidchallenge.R
-import com.eventbrite.androidchallenge.data.events.model.EventDto
-import com.eventbrite.androidchallenge.data.events.model.EventsDto
 import com.eventbrite.androidchallenge.databinding.EventsFragmentBinding
 import com.eventbrite.androidchallenge.ui.events.eventsAdapter.EventsAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
-import java.util.*
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class EventsFragment : Fragment() {
@@ -27,8 +21,6 @@ class EventsFragment : Fragment() {
     private var _binding: EventsFragmentBinding? = null
     private val binding get() = _binding
     private val viewModel: EventsViewModel by viewModels()
-
-
 
     companion object {
         fun newInstance() = EventsFragment()
@@ -71,6 +63,7 @@ class EventsFragment : Fragment() {
                 binding?.progressBar?.visibility = View.INVISIBLE
             }
         })
+
     }
 
     private fun initConfig(){
