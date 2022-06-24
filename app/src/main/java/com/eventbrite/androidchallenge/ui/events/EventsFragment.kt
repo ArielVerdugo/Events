@@ -67,11 +67,11 @@ class EventsFragment : Fragment() {
         })
 
         viewModel.isServiceError.observe(viewLifecycleOwner, Observer {
-            makeAlertDialogError(R.string.title_service_error.toString())
+            makeAlertDialogError(R.string.title_service_error)
         })
 
         viewModel.isInternetError.observe(viewLifecycleOwner, Observer {
-            makeAlertDialogError(R.string.title_network_error.toString())
+            makeAlertDialogError(R.string.title_network_error)
         })
 
     }
@@ -81,17 +81,18 @@ class EventsFragment : Fragment() {
         viewModel.getEvents()
     }
 
-    private fun makeAlertDialogError(title:String){
-        val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.apply {
-                setPositiveButton(title,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        viewModel.getEvents()
-                    })
+
+    private fun makeAlertDialogError(title:Int){
+        val dialog = AlertDialog.Builder(context)
+            .setTitle(title)
+            .setPositiveButton(R.string.buton_retry_error) { view, _ ->
+                viewModel.getEvents()
+                view.dismiss()
             }
-            builder.create()
-        }
+            .setCancelable(false)
+            .create()
+
+        dialog.show()
     }
 
 }

@@ -1,12 +1,5 @@
 package com.eventbrite.androidchallenge.ui.events
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
-import android.util.Log
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,8 +9,6 @@ import com.eventbrite.androidchallenge.data.events.model.ServiceResponse
 import com.eventbrite.androidchallenge.usecase.EventUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import retrofit2.Response
 import java.net.UnknownHostException
 import javax.inject.Inject
 
@@ -37,10 +28,11 @@ class EventsViewModel@Inject constructor(private val eventUseCase: EventUseCase)
     val showProgressIndicator: LiveData<Boolean> get() = _showProgress
 
     fun getEvents(){
-        showProgress()
         viewModelScope.launch {
+            showProgress()
             val result = eventUseCase.executeGetEvents()
             manageResponse(result)
+            hideProgress()
         }
     }
 
@@ -55,23 +47,10 @@ class EventsViewModel@Inject constructor(private val eventUseCase: EventUseCase)
     private fun manageResponse(response:ServiceResponse<EventsDto>){
         if (response != null && response.successful){
             _events.postValue(response.body)
-            hideProgress()
         }else{
-            //Todo algo que falle
-            if (response.exception is UnknownHostException){
-                // TODO: ERRRO INTERNET
-                Log.d("tu hermana","tu rehermana")
-                _isInternetError.postValue(true)
-            }else{
-                // Todo otro fallo
-                Log.d("tu prima","tu prima")
-                _isServiceError.postValue(true)
-            }
-            Log.d("aaa",response.toString())
-            hideProgress()
+            if (response.exception is UnknownHostException) _isInternetError.postValue(true)
+            else _isServiceError.postValue(true)
         }
-
-
     }
 
 }

@@ -2,4 +2,5 @@
     <string name="app_name">Android Challenge</string>
     <string name="title_network_error">No estás conectado a internet vuelve a intentar</string>
     <string name="title_service_error">Error inesperado vuelve a intentar</string>
+    <string name="buton_retry_error">Reintentar</string>
 </resources>
