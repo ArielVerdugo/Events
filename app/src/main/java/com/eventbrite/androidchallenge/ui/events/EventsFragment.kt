@@ -1,5 +1,7 @@
 package com.eventbrite.androidchallenge.ui.events
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -64,11 +66,32 @@ class EventsFragment : Fragment() {
             }
         })
 
+        viewModel.isServiceError.observe(viewLifecycleOwner, Observer {
+            makeAlertDialogError(R.string.title_service_error.toString())
+        })
+
+        viewModel.isInternetError.observe(viewLifecycleOwner, Observer {
+            makeAlertDialogError(R.string.title_network_error.toString())
+        })
+
     }
 
     private fun initConfig(){
         binding?.eventsRecyclerView?.layoutManager = LinearLayoutManager(context)
         viewModel.getEvents()
+    }
+
+    private fun makeAlertDialogError(title:String){
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setPositiveButton(title,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        viewModel.getEvents()
+                    })
+            }
+            builder.create()
+        }
     }
 
 }

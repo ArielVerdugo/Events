@@ -27,6 +27,12 @@ class EventsViewModel@Inject constructor(private val eventUseCase: EventUseCase)
     private val _events = MutableLiveData<EventsDto>()
     val events: LiveData<EventsDto> get() = _events
 
+    private val _isInternetError = MutableLiveData<Boolean>()
+    val isInternetError: LiveData<Boolean> get() = _isInternetError
+
+    private val _isServiceError = MutableLiveData<Boolean>()
+    val isServiceError: LiveData<Boolean> get() = _isServiceError
+
     private val _showProgress = MutableLiveData<Boolean>()
     val showProgressIndicator: LiveData<Boolean> get() = _showProgress
 
@@ -55,9 +61,11 @@ class EventsViewModel@Inject constructor(private val eventUseCase: EventUseCase)
             if (response.exception is UnknownHostException){
                 // TODO: ERRRO INTERNET
                 Log.d("tu hermana","tu rehermana")
+                _isInternetError.postValue(true)
             }else{
                 // Todo otro fallo
                 Log.d("tu prima","tu prima")
+                _isServiceError.postValue(true)
             }
             Log.d("aaa",response.toString())
             hideProgress()
