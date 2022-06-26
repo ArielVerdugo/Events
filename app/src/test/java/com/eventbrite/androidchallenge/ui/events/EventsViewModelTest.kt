@@ -11,13 +11,18 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
+import okhttp3.MediaType
+import okhttp3.Request
+import okhttp3.ResponseBody
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import retrofit2.Response
+import retrofit2.Retrofit
 import java.net.UnknownHostException
 import java.util.*
+
 
 @ExperimentalCoroutinesApi
 class EventsViewModelTest{
@@ -70,7 +75,7 @@ class EventsViewModelTest{
 
         val responseBodyMock = ResponseBodyMock()
 
-        val r1: Response<*> = Response.error<ResponseBodyMock>(400,responseBodyMock)
+        val r1: Response<*> = Response.error<ResponseBodyMock>(300,responseBodyMock)
 
         val response = ServiceResponse.failure(r1,exception)
 
@@ -79,9 +84,7 @@ class EventsViewModelTest{
         //WHEN
         eventViewModel.getEvents()
 
-
         assert(eventViewModel._isInternetError.value == true)
-
     }
 
 
@@ -99,7 +102,6 @@ class EventsViewModelTest{
 
         //WHEN
         eventViewModel.getEvents()
-
 
         assert(eventViewModel._isServiceError.value == true)
 

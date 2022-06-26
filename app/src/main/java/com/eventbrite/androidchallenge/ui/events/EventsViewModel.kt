@@ -18,8 +18,6 @@ class EventsViewModel@Inject constructor(private val eventUseCase: EventUseCase)
     val _events = MutableLiveData<EventsDto>()
     val events: LiveData<EventsDto> get() = _events
 
-    val listEvents = MutableLiveData<EventsDto>()
-
     val _isInternetError = MutableLiveData<Boolean>()
     val isInternetError: LiveData<Boolean> get() = _isInternetError
 
@@ -54,14 +52,4 @@ class EventsViewModel@Inject constructor(private val eventUseCase: EventUseCase)
             else _isServiceError.postValue(true)
         }
     }
-
-    /*fun manageResponse2(eventsDto: EventsDto){
-        if (eventsDto != null){
-            _events.value = eventsDto
-        }else{
-            if (response?.exception is UnknownHostException) _isInternetError.postValue(true)
-            else _isServiceError.postValue(true)
-        }
-    }*/
-
 }
