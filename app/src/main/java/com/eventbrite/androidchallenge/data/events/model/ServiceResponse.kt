@@ -26,5 +26,5 @@ data class ServiceResponse<T>(
     }
 
     val successful: Boolean get() = if (this.data != null) this.data.isSuccessful else false
-    val body: T get() = this.data!!.body()!!
+    val body: T? get() = this.data?.body()
 }

@@ -15,13 +15,15 @@ import javax.inject.Inject
 @HiltViewModel
 class EventsViewModel@Inject constructor(private val eventUseCase: EventUseCase) : ViewModel(){
 
-    private val _events = MutableLiveData<EventsDto>()
+    val _events = MutableLiveData<EventsDto>()
     val events: LiveData<EventsDto> get() = _events
 
-    private val _isInternetError = MutableLiveData<Boolean>()
+    val listEvents = MutableLiveData<EventsDto>()
+
+    val _isInternetError = MutableLiveData<Boolean>()
     val isInternetError: LiveData<Boolean> get() = _isInternetError
 
-    private val _isServiceError = MutableLiveData<Boolean>()
+    val _isServiceError = MutableLiveData<Boolean>()
     val isServiceError: LiveData<Boolean> get() = _isServiceError
 
     private val _showProgress = MutableLiveData<Boolean>()
@@ -44,13 +46,22 @@ class EventsViewModel@Inject constructor(private val eventUseCase: EventUseCase)
         _showProgress.value = false
     }
 
-    private fun manageResponse(response:ServiceResponse<EventsDto>){
+     fun manageResponse(response:ServiceResponse<EventsDto>?){
         if (response != null && response.successful){
-            _events.postValue(response.body)
+            _events.value = response.body
         }else{
-            if (response.exception is UnknownHostException) _isInternetError.postValue(true)
+            if (response?.exception is UnknownHostException) _isInternetError.postValue(true)
             else _isServiceError.postValue(true)
         }
     }
+
+    /*fun manageResponse2(eventsDto: EventsDto){
+        if (eventsDto != null){
+            _events.value = eventsDto
+        }else{
+            if (response?.exception is UnknownHostException) _isInternetError.postValue(true)
+            else _isServiceError.postValue(true)
+        }
+    }*/
 
 }
