@@ -56,7 +56,7 @@ class EventsViewModelTest{
         coEvery { eventUseCase.executeGetEvents()} returns response as ServiceResponse<EventsDto>
 
         //WHEN
-        eventViewModel.getEvents()
+        eventViewModel.getEvents(false)
 
 
         assert(eventViewModel._events.value == events)
@@ -73,7 +73,7 @@ class EventsViewModelTest{
         coEvery { eventUseCase.executeGetEvents()} returns response as ServiceResponse<EventsDto>
 
         //WHEN
-        eventViewModel.getEvents()
+        eventViewModel.getEvents(false)
 
         assert(eventViewModel._isInternetError.value == true)
     }
@@ -92,7 +92,7 @@ class EventsViewModelTest{
         coEvery { eventUseCase.executeGetEvents()} returns response as ServiceResponse<EventsDto>
 
         //WHEN
-        eventViewModel.getEvents()
+        eventViewModel.getEvents(false)
 
         assert(eventViewModel._isServiceError.value == true)
 

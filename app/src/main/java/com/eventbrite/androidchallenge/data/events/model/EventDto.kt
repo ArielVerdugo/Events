@@ -21,7 +21,7 @@ data class EventDto(
 
 data class EventsDto(
     @SerializedName("events")
-    val events: List<EventDto>? = null
+    val events: List<EventDto>? = listOf()
 )
 
 data class ImageDto(

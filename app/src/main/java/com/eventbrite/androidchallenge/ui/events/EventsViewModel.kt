@@ -27,12 +27,12 @@ class EventsViewModel@Inject constructor(private val eventUseCase: EventUseCase)
     private val _showProgress = MutableLiveData<Boolean>()
     val showProgressIndicator: LiveData<Boolean> get() = _showProgress
 
-    fun getEvents(){
+    fun getEvents(showProgressUi: Boolean){
         viewModelScope.launch {
-            showProgress()
+            if(showProgressUi) showProgress()
             val result = eventUseCase.executeGetEvents()
             manageResponse(result)
-            hideProgress()
+            if(showProgressUi) hideProgress()
         }
     }
 
