@@ -11,13 +11,17 @@ data class EventDto(
     val name: String,
     @SerializedName("start_date")
     val startDate: Date,
+    @SerializedName("summary")
+    val summary: String,
+    @SerializedName("status")
+    val status: String,
     @SerializedName("image")
     val image: ImageDto? = null
 )
 
 data class EventsDto(
     @SerializedName("events")
-    val events: List<EventDto>? = null
+    val events: List<EventDto>? = listOf()
 )
 
 data class ImageDto(
