@@ -11,15 +11,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import okhttp3.MediaType
-import okhttp3.Request
-import okhttp3.ResponseBody
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import retrofit2.Response
-import retrofit2.Retrofit
 import java.net.UnknownHostException
 import java.util.*
 
@@ -31,7 +27,6 @@ class EventsViewModelTest{
     private lateinit var eventUseCase: EventUseCase
 
     private lateinit var eventViewModel: EventsViewModel
-
 
 
     @get:Rule
@@ -73,11 +68,7 @@ class EventsViewModelTest{
         //Given
         val exception = UnknownHostException()
 
-        val responseBodyMock = ResponseBodyMock()
-
-        val r1: Response<*> = Response.error<ResponseBodyMock>(300,responseBodyMock)
-
-        val response = ServiceResponse.failure(r1,exception)
+        val response = ServiceResponse.failure<ResponseBodyMock>(null,exception)
 
         coEvery { eventUseCase.executeGetEvents()} returns response as ServiceResponse<EventsDto>
 

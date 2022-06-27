@@ -1,5 +1,6 @@
 package com.eventbrite.androidchallenge.data.events.model
 
+import com.eventbrite.androidchallenge.utils.Constants
 import okio.*
 import java.io.InputStream
 import java.nio.ByteBuffer
@@ -11,19 +12,19 @@ class BufferdMock: BufferedSource {
     }
 
     override fun read(sink: ByteArray): Int {
-        return 1
+        return Constants.INT_MOCK_VALUE
     }
 
     override fun read(sink: ByteArray, offset: Int, byteCount: Int): Int {
-        return 1
+        return Constants.INT_MOCK_VALUE
     }
 
     override fun read(sink: Buffer, byteCount: Long): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun read(p0: ByteBuffer?): Int {
-        return 1
+        return Constants.INT_MOCK_VALUE
     }
 
     override fun timeout(): Timeout {
@@ -58,35 +59,35 @@ class BufferdMock: BufferedSource {
     }
 
     override fun readShort(): Short {
-        return 1
+        return Constants.INT_MOCK_VALUE.toShort()
     }
 
     override fun readShortLe(): Short {
-        return 1
+        return Constants.INT_MOCK_VALUE.toShort()
     }
 
     override fun readInt(): Int {
-        return 1
+        return Constants.INT_MOCK_VALUE
     }
 
     override fun readIntLe(): Int {
-        return 1
+        return Constants.INT_MOCK_VALUE
     }
 
     override fun readLong(): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun readLongLe(): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun readDecimalLong(): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun readHexadecimalUnsignedLong(): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun skip(byteCount: Long) {
@@ -102,15 +103,15 @@ class BufferdMock: BufferedSource {
     }
 
     override fun select(options: Options): Int {
-        return 1
+        return Constants.INT_MOCK_VALUE
     }
 
     override fun readByteArray(): ByteArray {
-        return ByteArray(1)
+        return ByteArray(Constants.INT_MOCK_VALUE)
     }
 
     override fun readByteArray(byteCount: Long): ByteArray {
-        return ByteArray(1)
+        return ByteArray(Constants.INT_MOCK_VALUE)
     }
 
     override fun readFully(sink: ByteArray) {
@@ -120,67 +121,67 @@ class BufferdMock: BufferedSource {
     }
 
     override fun readAll(sink: Sink): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun readUtf8(): String {
-        return ""
+        return Constants.STRING_MOCK_VALUE
     }
 
     override fun readUtf8(byteCount: Long): String {
-        return ""
+        return Constants.STRING_MOCK_VALUE
     }
 
     override fun readUtf8Line(): String? {
-        return ""
+        return Constants.STRING_MOCK_VALUE
     }
 
     override fun readUtf8LineStrict(): String {
-        return ""
+        return Constants.STRING_MOCK_VALUE
     }
 
     override fun readUtf8LineStrict(limit: Long): String {
-        return ""
+        return Constants.STRING_MOCK_VALUE
     }
 
     override fun readUtf8CodePoint(): Int {
-        return 1
+        return Constants.INT_MOCK_VALUE
     }
 
     override fun readString(charset: Charset): String {
-        return ""
+        return Constants.STRING_MOCK_VALUE
     }
 
     override fun readString(byteCount: Long, charset: Charset): String {
-        return ""
+        return Constants.STRING_MOCK_VALUE
     }
 
     override fun indexOf(b: Byte): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun indexOf(b: Byte, fromIndex: Long): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun indexOf(b: Byte, fromIndex: Long, toIndex: Long): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun indexOf(bytes: ByteString): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun indexOf(bytes: ByteString, fromIndex: Long): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun indexOfElement(targetBytes: ByteString): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun indexOfElement(targetBytes: ByteString, fromIndex: Long): Long {
-        return 1
+        return Constants.INT_MOCK_VALUE.toLong()
     }
 
     override fun rangeEquals(offset: Long, bytes: ByteString): Boolean {
